@@ -1,9 +1,9 @@
-// Name
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config(); // Loads into .env
+require("dotenv").config({ path: "../.env" }); // Loads into .env
 
+const app = express();
 app.use(cors()); // CORS middleware for cross access control
 app.use(express.json()); // ?
 
