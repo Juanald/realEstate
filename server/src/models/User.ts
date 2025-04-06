@@ -1,7 +1,15 @@
 // Models are used for Mongoose to create NoSQL linkages. Each user has a username, password, email, and bio
-const mongoose = require("mongoose");
+import mongoose, { Document } from "mongoose";
 
-const userSchema = new mongoose.Schema(
+export interface IUser extends Document {
+  username: String;
+  email: String;
+  password: String;
+  bio: String;
+}
+
+// A schema that conforms to the user interface
+const userSchema = new mongoose.Schema<IUser>(
   {
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
@@ -11,4 +19,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-mongoose.exports = mongoose.model("User", userSchema); // Export the schema, a user shall have this shape.
+export default mongoose.model<IUser>("User", userSchema);

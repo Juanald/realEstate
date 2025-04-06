@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // Specify ECMAScript target version (ES6 is good for Node)
+    "module": "commonjs", // Module code generation (commonjs is recommended for Node)
+    "lib": ["es6"], // Include library files for ES6
+    "esModuleInterop": true, // Allow default imports from modules with no default export
+    "skipLibCheck": true, // Skip type checking of declaration files (speeds up compilation)
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file naming across imports
+    "strict": true, // Enable all strict type-checking options
+    "moduleResolution": "node", // Module resolution strategy (use node's module resolution)
+    "outDir": "./dist", // Redirect the output to the dist folder
+    "baseUrl": ".", // Base directory to resolve non-relative module names
+    "resolveJsonModule": true, // Allow importing .json files
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "noEmitOnError": true // Don't emit output if there are type errors
+  },
+  "include": [
+    "src/**/*.ts" // Include all .ts files in the src folder
+  ],
+  "exclude": [
+    "node_modules" // Exclude node_modules
+  ]
+}
