@@ -6,10 +6,13 @@ import Login from "./pages/Login.tsx";
 import Search from "./pages/Search.tsx";
 import ListingDetails from "./pages/ListingDetails.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
+import NavBar from "./components/NavBar.tsx";
+import "./index.css";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
