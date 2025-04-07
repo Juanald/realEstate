@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import morgan from "morgan";
 import userRoutes from "./routes/userRoutes";
 import listingRoutes from "./routes/listingRoutes";
 require("dotenv").config({ path: "../.env" }); // Loads into .env
@@ -9,6 +10,7 @@ require("dotenv").config({ path: "../.env" }); // Loads into .env
 const app = express();
 app.use(cors()); // CORS middleware for cross access control
 app.use(express.json()); // Automatically parse raw JSON formatted strings into JSON
+app.use(morgan("combined")); // For automatic HTTP logging
 
 // Middleware to mount routers onto predefined endpoints
 app.use("/api/users", userRoutes);
