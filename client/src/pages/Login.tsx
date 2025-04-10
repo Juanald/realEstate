@@ -1,6 +1,7 @@
 import { formToJSON } from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../authContext";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +40,7 @@ export default function Login() {
       // Store user and JWT in local storage for authenticated requests
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      setIsLoggedIn(true);
       navigate("/"); // Using the global authentication context to get user login info (Hello, name instead of signup, and logout to clear local storage and sign outs)
     } catch (e: any) {
       setError(e.message);

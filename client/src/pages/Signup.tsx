@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../authContext";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ export default function Signup() {
     password: "",
     bio: "",
   });
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ export default function Signup() {
       // Store user and JWT in local storage for authenticated requests
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      setIsLoggedIn(true);
       navigate("/"); // Using the global authentication context to get user login info (Hello, name instead of signup, and logout to clear local storage and sign outs)
     } catch (e: any) {
       setError(e.message);
