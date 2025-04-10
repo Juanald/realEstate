@@ -8,6 +8,7 @@ import ListingDetails from "./pages/ListingDetails.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import NavBar from "./components/NavBar.tsx";
 import "./index.css";
+import ListingForm from "./components/ListingForm.tsx";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
         <Route path="/listing/:id" element={<ListingDetails />} />
+        <Route path="/listing/post" element={<ListingForm />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

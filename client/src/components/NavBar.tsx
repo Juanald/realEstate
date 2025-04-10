@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 
 export default function NavBar() {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -16,6 +17,7 @@ export default function NavBar() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   return (
@@ -24,12 +26,20 @@ export default function NavBar() {
         RealEstateX
       </Link>
       {isLoggedIn ? (
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-          onClick={handleLogout}
-        >
-          Log out
-        </button>
+        <div className="gap-4 flex">
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            onClick={handleLogout}
+          >
+            Log out
+          </button>
+          <Link
+            to="/listing/post"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+            Post Listing
+          </Link>
+        </div>
       ) : (
         <Link
           to="/signup"
