@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search/listings" element={<Listings />} />
-        <Route path="/listing/:id" element={<ListingDetails />} />
+        {/* <Route path="/search/listings/:id" element={<ListingModal />} /> */}
         <Route path="/listing/post" element={<ListingForm />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
