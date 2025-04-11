@@ -22,6 +22,20 @@ export const getListing = async (req: Request, res: Response) => {
   }
 };
 
+export const getQueriedListings = async (req: Request, res: Response) => {
+  console.log("Hit query endpoint");
+  // For now, we retrieve all listings. TODO: Incorporate queried listings
+  try {
+    const listings: IListing[] | null = await Listing.find();
+    if (!listings) {
+      res.status(404).json({ message: "No listings found" });
+    }
+    res.status(200).json(listings);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const updateListing = async (req: Request, res: Response) => {
   try {
     const listing: IListing | null = await Listing.findByIdAndUpdate(

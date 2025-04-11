@@ -8,8 +8,8 @@ import listingRoutes from "./routes/listingRoutes";
 require("dotenv").config({ path: "../.env" }); // Loads into .env
 
 const app = express();
-app.use(cors()); // CORS middleware for cross access control
 app.use(express.json()); // Automatically parse raw JSON formatted strings into JSON
+app.use(cors({ origin: "http://localhost:3000", credentials: true })); // CORS middleware for cross access control
 app.use(morgan("combined")); // For automatic HTTP logging
 
 // Middleware to mount routers onto predefined endpoints
