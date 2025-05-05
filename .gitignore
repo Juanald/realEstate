@@ -15,3 +15,5 @@ npm-debug.log*
 # Optional
 .idea/
 .vscode/
+
+uploads/

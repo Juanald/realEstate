@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json()); // Automatically parse raw JSON formatted strings into JSON
 app.use(cors({ origin: "http://localhost:3000", credentials: true })); // CORS middleware for cross access control
 app.use(morgan("combined")); // For automatic HTTP logging
+app.use("/uploads", express.static("uploads")); // For local storage of images
 
 // Middleware to mount routers onto predefined endpoints
 app.use("/api/users", userRoutes);

@@ -3,7 +3,21 @@ import { Request, Response } from "express";
 
 export const createListing = async (req: Request, res: Response) => {
   try {
-    const listing: IListing = await Listing.create(req.body);
+    const { title, description, price, location, createdBy } = req.body;
+    // Upload image title and url (in /server/uploads directory)
+    const images = (req.files as Express.Multer.File[]).map((file) => ({
+      title: file.originalname,
+      url: `/uploads/${file.filename}`,
+    }));
+
+    const listing: IListing = await Listing.create({
+      title,
+      description,
+      price,
+      location,
+      createdBy,
+      images,
+    });
     res.status(201).json(listing);
   } catch (err: any) {
     res.status(400).json({ message: err.message });
@@ -23,10 +37,19 @@ export const getListing = async (req: Request, res: Response) => {
 };
 
 export const getQueriedListings = async (req: Request, res: Response) => {
-  console.log("Hit query endpoint");
+  const { search } = req.query;
   // For now, we retrieve all listings. TODO: Incorporate queried listings
   try {
-    const listings: IListing[] | null = await Listing.find();
+    let listings: IListing[] | null;
+
+    // If we have a search parameter, return somethin
+    if (search) {
+      listings = await Listing.find({
+        title: { $regex: search, $options: "i" },
+      });
+    } else {
+      listings = await Listing.find();
+    }
     if (!listings) {
       res.status(404).json({ message: "No listings found" });
     }

@@ -9,22 +9,28 @@ export default function ListingForm() {
     description: "",
     price: "",
     location: "",
-    createdBy: user._id || null,
+    createdBy: user._id,
   });
+  const [selectedImages, setSelectedImages] = useState<FileList | null>();
   const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
 
   const handleFormSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const submissionFormData = new FormData();
+    for (const key in formData) {
+      submissionFormData.append(key, formData[key as keyof typeof formData]);
+    }
+    if (selectedImages) {
+      for (const img of selectedImages) {
+        submissionFormData.append("images", img);
+      }
+    }
     try {
       const res = await fetch("http://localhost:5000/api/listings/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: submissionFormData,
       });
 
       if (!res.ok) {
@@ -49,6 +55,10 @@ export default function ListingForm() {
     }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedImages(e.target.files);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
@@ -56,7 +66,11 @@ export default function ListingForm() {
           Post a Listing
         </h1>
 
-        <form className="flex flex-col gap-4" onSubmit={handleFormSubmission}>
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={handleFormSubmission}
+          encType="multipart/form-data"
+        >
           <input
             type="text"
             placeholder="Title"
@@ -87,6 +101,14 @@ export default function ListingForm() {
             name="location"
             value={formData.location}
             onChange={handleChange}
+            className="border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="file"
+            multiple
+            name="files"
+            onChange={handleFileChange}
+            accept="image/*"
             className="border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button

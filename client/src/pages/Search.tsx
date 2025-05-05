@@ -10,9 +10,12 @@ export default function Search() {
     e.preventDefault();
     try {
       // This will have to be a POST request.
-      const res = await fetch("http://localhost:5000/api/listings", {
-        method: "GET",
+      const params = new URLSearchParams({
+        search: search,
       });
+      const res = await fetch(
+        `http://localhost:5000/api/listings/search?${params.toString()}`
+      );
 
       if (!res.ok) throw new Error("Listings not found");
 
