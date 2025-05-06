@@ -11,7 +11,7 @@ export default function ListingForm() {
     location: "",
     createdBy: user._id,
   });
-  const [selectedImages, setSelectedImages] = useState<FileList | null>();
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
@@ -56,7 +56,10 @@ export default function ListingForm() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedImages(e.target.files);
+    if (!e.target.files) return;
+    const newFiles = Array.from(e.target.files);
+    setSelectedImages((prev) => [...prev, ...newFiles]);
+    console.log(selectedImages);
   };
 
   return (
@@ -106,7 +109,7 @@ export default function ListingForm() {
           <input
             type="file"
             multiple
-            name="files"
+            name="images"
             onChange={handleFileChange}
             accept="image/*"
             className="border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
