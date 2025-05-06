@@ -9,6 +9,7 @@ export default function Search() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      navigate("/search/listings", { state: { listings: [] } });
       // This will have to be a POST request.
       const params = new URLSearchParams({
         search: search,
