@@ -16,9 +16,7 @@ export default function Search() {
       const res = await fetch(
         `http://localhost:5000/api/listings/search?${params.toString()}`
       );
-
       if (!res.ok) throw new Error("Listings not found");
-
       const data = await res.json();
       navigate("/search/listings", { state: { listings: data } }); // useLocation() hook to capture state
     } catch (err: any) {

@@ -16,11 +16,24 @@ export default function ListingCard({ listing }: ListingProps) {
         className="p-4 border rounded-lg shadow hover:shadow-lg transition hover:cursor-pointer"
       >
         <h2 className="text-xl font-semibold">{listing.title}</h2>
+        {listing.images.length > 0 && (
+          <img
+            src={("http://localhost:5000" + listing.images[0].url) as string}
+            alt={listing.images[0].title as string}
+          />
+        )}
         <p className="text-gray-600">${listing.price.toString()}</p>
       </div>
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <h2 className="text-2xl font-bold mb-4">{listing.title}</h2>
+        {listing.images.length > 0 && (
+          <img
+            src={("http://localhost:5000" + listing.images[0].url) as string}
+            alt={listing.images[0].title as string}
+            // src="../uploads/1746539208788-download.jpg"
+          />
+        )}
         <p className="mb-2 text-gray-700">Price: ${listing.price.toString()}</p>
         <p className="text-gray-600">{listing.description}</p>
       </Modal>
